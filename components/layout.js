@@ -21,14 +21,14 @@ export default function Layout({ children, home }) {
         </Head>
         <header className={styles.header}>
           {home ? (
-            <>
+            <div className={styles.headerBrand}>
               <img
                 src="/images/bloom-logo.png"
                 className={styles.headerHomeImage}
                 alt={name}
               />
               <h1 className={utilStyles.heading2Xl}>{name}</h1>
-            </>
+            </div>
           ) : (
             <>
               <Link href="/">
