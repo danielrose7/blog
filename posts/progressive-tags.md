@@ -4,7 +4,7 @@ date: "2023-01-27"
 image: "/images/gifs/tagging-jan-27-2023.gif"
 imageWidth: 640
 imageHeight: 394
-githubLink: "https://gist.github.com/danielpowell4/fa3e9ad9453d5a6d609f170dd13e8c9e"
+githubLink: "https://gist.github.com/danielrose7/fa3e9ad9453d5a6d609f170dd13e8c9e"
 slug: progressive-tags
 ---
 

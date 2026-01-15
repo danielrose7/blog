@@ -25,31 +25,19 @@ export default function Home({ allPostsData }) {
         <title>{siteTitle}</title>
       </Head>
       <section className={`${utilStyles.headingMd} ${utilStyles.capWidth}`}>
-        <h2 className={utilStyles.headingLg}>Hey cool kids!</h2>
-        <p>Building stuff is fun. Going fast and steady is great.</p>
+        <h2 className={utilStyles.headingLg}>Building better buttons.</h2>
         <p>
-          {`I was previously CTO at `}
-          <a href="https://privateprep.com">@privateprep</a>
-          {`, am currently making the world a greener place as a Founding Senior Fullstack Engineer `}
-          <a href="https://tryplantiful.com">@tryplantiful</a>
-          {` and would love to chat about what you have going on.`}
+          My name is Daniel Rose. I started Bloom Interactive as a consulting LLC back in 2015 and my first client hired me on full time. Eventually I became CTO of <a href="https://privateprep.com">PrivatePrep</a>.
+        </p>
+        <p>
+          I'm currently making the world a greener place as a Founding Senior Fullstack Engineer at <a href="https://tryplantiful.com">Plantiful</a> and would love to chat about what you have going on.
         </p>
         <ul className={homeStyles.socialLinks}>
           <li className={homeStyles.socialLinks__item}>
-            <a href="https://github.com/danielpowell4">
+            <a href="https://github.com/danielrose7">
               <Image
                 src="/images/icons/github.svg"
-                alt="GitHub Logo"
-                width={60}
-                height={60}
-              />
-            </a>
-          </li>
-          <li className={homeStyles.socialLinks__item}>
-            <a href="https://codepen.io/bloom-dan/">
-              <Image
-                src="/images/icons/codepen.svg"
-                alt="CodePen Logo"
+                alt="GitHub"
                 width={60}
                 height={60}
               />
@@ -59,17 +47,17 @@ export default function Home({ allPostsData }) {
             <a href="https://www.linkedin.com/in/daniel-powell-11a91b70/">
               <Image
                 src="/images/icons/linkedin.svg"
-                alt="LinkedIn Logo"
+                alt="LinkedIn"
                 width={40}
                 height={40}
               />
             </a>
           </li>
           <li className={homeStyles.socialLinks__item}>
-            <a href="mailto:dan@gobloom.io?subject='Hi Dan!'">
+            <a href="mailto:dan@gobloom.io?subject=Hello from gobloom.io">
               <Image
                 src="/images/icons/mail.svg"
-                alt="Email Icon"
+                alt="Email"
                 width={60}
                 height={60}
               />
@@ -99,20 +87,18 @@ export default function Home({ allPostsData }) {
 
               return (
                 <li className={utilStyles.listItem} key={id}>
-                  <Link href={`/posts/${id}`}>
-                    <a className={homeStyles.cardLink}>
-                      <Image
-                        src={image}
-                        alt={`Preview of ${title}`}
-                        width={FIXED_IMAGE_WIDTH}
-                        height={Math.floor(correctionRatio * imageHeight)}
-                        objectFit="cover"
-                        priority={isPriority}
-                      />
-                      <span className={homeStyles.cardLink__title}>
-                        {title}
-                      </span>
-                    </a>
+                  <Link href={`/posts/${id}`} className={homeStyles.cardLink}>
+                    <Image
+                      src={image}
+                      alt={`Preview of ${title}`}
+                      width={FIXED_IMAGE_WIDTH}
+                      height={Math.floor(correctionRatio * imageHeight)}
+                      style={{ objectFit: "cover" }}
+                      priority={isPriority}
+                    />
+                    <span className={homeStyles.cardLink__title}>
+                      {title}
+                    </span>
                   </Link>
                 </li>
               );

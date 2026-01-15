@@ -46,7 +46,6 @@ export default function Post({ postData }) {
             alt={`Preview of ${postData.title}`}
             width={FIXED_WIDTH}
             height={Math.floor(correctionRatio * postData.imageHeight)}
-            layout="intrinsic"
           />
           {!!postData.codepenLink && <a href={postData.codepenLink} target="_blank" className={postStyles.externalLink}>View on CodePen ↗</a>}
           {!!postData.githubLink && <a href={postData.githubLink} target="_blank" className={postStyles.externalLink}>View on GitHub ↗</a>}

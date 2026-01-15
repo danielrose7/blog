@@ -4,7 +4,7 @@ date: "2023-01-27"
 image: "/images/gifs/dataset-props-jan-27-2023.png"
 imageWidth: 1406
 imageHeight: 618
-githubLink: "https://gist.github.com/danielpowell4/fda80fe497486ecb41924461a81485ae"
+githubLink: "https://gist.github.com/danielrose7/fda80fe497486ecb41924461a81485ae"
 slug: dataset-props
 ---
 

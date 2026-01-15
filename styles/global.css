@@ -1,12 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik|Lato");
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
   background-color: #fbfafb;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * {
