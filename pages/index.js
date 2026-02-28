@@ -60,6 +60,8 @@ export default function Home() {
           </li>
         </ul>
         <p>
+          <Link href="/portfolio">Portfolio →</Link>
+          {" · "}
           <Link href="/playground">Playground →</Link>
         </p>
       </section>
