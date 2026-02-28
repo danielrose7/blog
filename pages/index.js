@@ -22,7 +22,7 @@ export default function Home() {
           We did over $10MM in revenue a year, launched a best-in-class online test platform, and ran a rad apprenticeship program.
         </p>
         <p>
-          By day I'm a Founding Senior Fullstack Engineer at <a href="https://tryplantiful.com">@tryplantiful</a>. We're doing the startup thing living out on the bleeding edge.
+          By day I'm a Founding Senior Fullstack Engineer at <a href="https://tryplantiful.com">@tryplantiful</a>. We're doing the startup thing—building the best app for the horticultural industry (not weed) and living out on the bleeding edge.
         </p>
         <p>
           I like projects and would love to chat about what you have going on.
