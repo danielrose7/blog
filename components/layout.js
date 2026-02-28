@@ -47,7 +47,19 @@ export default function Layout({ children, home }) {
         </header>
         <main>{children}</main>
       </div>
-    <footer className={`${styles.footer} ${utilStyles.lightText}`}>Bloom Interactive</footer>
+    <footer className={styles.footer}>
+      <span className={styles.footerCopyright}>&copy; {new Date().getFullYear()} Bloom Interactive</span>
+      <a
+        href="https://gobloom.io"
+        className={styles.mountainLink}
+      >
+        <span className={styles.mountainLabel}>Made in Silverton, CO</span>
+      </a>
+      <nav className={styles.footerNav}>
+        <Link href="/portfolio">Portfolio</Link>
+        <Link href="/playground">Playground</Link>
+      </nav>
+    </footer>
     </>
   )
 }

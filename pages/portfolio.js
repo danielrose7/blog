@@ -23,9 +23,9 @@ const projects = [
   },
   {
     name: "Online test app",
-    tagline: "Adaptive practice testing platform",
+    tagline: "4MM+ questions answered",
     description:
-      "A digital practice testing platform built for ArborBridge and Private Prep — years before the SAT and ACT went digital themselves. Data-driven, adaptive lessons for thousands of students across SAT, ACT, and entrance exam prep.",
+      "Built a fully featured online, interactive practice test tool from zero to one for ArborBridge and Private Prep. Adaptive, data-driven lessons across SAT, ACT, and entrance exam prep.",
     url: "https://www.arborbridge.com/",
     image: "/images/portfolio/arborbridge.png",
     clients: ["ArborBridge", "Private Prep"],
@@ -37,6 +37,14 @@ const projects = [
       "End-to-end class platform for The Coding Space. Client-side filtering across hundreds of offerings, billing and payments, plus a backend for scheduling, client and student profiles, and teacher assignment.",
     url: "https://www.thecodingspace.com/classes",
     image: "/images/portfolio/tcs-classes.png",
+  },
+  {
+    name: "Online storefront",
+    tagline: "Local print shop with six locations",
+    description:
+      "Custom e-commerce site for a Colorado screen printing company with six locations. Includes custom order forms with Dropbox upload, inventory management via InkSoft integration, and a full product catalog.",
+    url: "https://www.labseven.co/",
+    image: "/images/portfolio/labseven.png",
   },
 ];
 
@@ -83,13 +91,20 @@ export default function Portfolio() {
       <section className={styles.portfolio}>
         <div className={styles.intro}>
           <h2 className={utilStyles.headingXl}>Portfolio</h2>
-          <p>Products we've built and client work we're proud of.</p>
+          <p>If it's on the internet, we can build it<a href="#disclaimer" className={styles.asterisk}><sup>*</sup></a></p>
         </div>
         <ul className={styles.projectList}>
           {projects.map((project) => (
             <ProjectItem key={project.name} {...project} />
           ))}
         </ul>
+        <p id="disclaimer" className={styles.disclaimer}><sup>*</sup>Or at least figure out how to, quickly.</p>
+        <div className={styles.cta}>
+          <p>Have something you <em>actually</em> want to get off the ground?</p>
+          <a href="mailto:dan@gobloom.io?subject=Hello from gobloom.io" className={styles.ctaLink}>
+            dan@gobloom.io &rarr;
+          </a>
+        </div>
       </section>
     </Layout>
   );
