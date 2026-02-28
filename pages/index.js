@@ -22,7 +22,10 @@ export default function Home() {
           We did over $15MM in revenue a year, launched a best-in-class online test platform, and ran a rad apprenticeship program.
         </p>
         <p>
-          By day I'm a Founding Senior Fullstack Engineer at <a href="https://tryplantiful.com">@tryplantiful</a>. We're doing the startup thing—growing the best app for the <span className={homeStyles.tooltip}>horticultural industry<span className={homeStyles.tooltipText}>No, not weed</span></span> and living out on the bleeding edge.
+          By day I'm a Founding Senior Fullstack Engineer at <a href="https://tryplantiful.com">@tryplantiful</a>. We're doing the startup thing—growing helpful tools for the <span className={homeStyles.tooltip}>horticultural industry<span className={homeStyles.tooltipText}>No, not weed</span></span> and living out on the bleeding edge.
+        </p>
+        <p>
+          By night I'm cooking 🤌 and debating if we should go surfing because life is short or because life is long. <span role="img" aria-label="surfing" title="surf's up">🏄</span>
         </p>
         <p>
           I like projects and would love to chat about what you have going on.

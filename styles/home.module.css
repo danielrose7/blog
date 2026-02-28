@@ -10,7 +10,7 @@
 
 .socialLinks {
   list-style: none;
-  margin: 0;
+  margin: 0 0 1rem;
   padding: 0;
 
   display: flex;
