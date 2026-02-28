@@ -19,7 +19,7 @@ export default function Home() {
           After working at an agency, I started Bloom Interactive as an umbrella back in 2015. My first client, <a href="https://privateprep.com">@privateprep</a>, liked my work so much they hired me full time. Eventually I became their <a href="https://github.com/danielrose7">CTO</a>.
         </p>
         <p>
-          We did over $10MM in revenue a year, launched a best-in-class online test platform, and ran a rad apprenticeship program.
+          We did over $15MM in revenue a year, launched a best-in-class online test platform, and ran a rad apprenticeship program.
         </p>
         <p>
           By day I'm a Founding Senior Fullstack Engineer at <a href="https://tryplantiful.com">@tryplantiful</a>. We're doing the startup thing—growing the best app for the <span className={homeStyles.tooltip}>horticultural industry<span className={homeStyles.tooltipText}>No, not weed</span></span> and living out on the bleeding edge.
