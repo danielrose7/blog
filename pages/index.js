@@ -16,7 +16,7 @@ export default function Home() {
         <p className={utilStyles.hello}>Hello.</p>
         <h2 className={utilStyles.heading2Xl} style={{ marginTop: 0 }}>I'm Daniel.</h2>
         <p>
-          After working at an agency, I started Bloom Interactive as an umbrella back in 2015. My first client, <a href="https://privateprep.com">@privateprep</a>, liked my work so much they hired me full time. Eventually I became their <a href="https://github.com/danielrose7">CTO</a>.
+          After working at an <span className={homeStyles.tooltipPink}>agency<span className={homeStyles.tooltipText}>design, branding, websites</span></span>, I started Bloom Interactive as an umbrella back in 2015. My first client, <a href="https://privateprep.com">@privateprep</a>, liked my work so much they hired me full time. Eventually I became their <a href="https://github.com/danielrose7">CTO</a>.
         </p>
         <p>
           We did over $15MM in revenue a year, launched a best-in-class online test platform, and ran a rad apprenticeship program.

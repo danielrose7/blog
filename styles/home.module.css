@@ -61,7 +61,18 @@
   cursor: help;
 }
 
-.tooltip .tooltipText {
+.tooltipPink {
+  position: relative;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: #e8619a;
+  text-underline-offset: 2px;
+  color: #e8619a;
+  cursor: help;
+}
+
+.tooltip .tooltipText,
+.tooltipPink .tooltipText {
   visibility: hidden;
   opacity: 0;
   position: absolute;
@@ -81,6 +92,11 @@
 }
 
 .tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltipPink:hover .tooltipText {
   visibility: visible;
   opacity: 1;
 }

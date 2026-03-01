@@ -22,7 +22,7 @@ const projects = [
     image: "/images/portfolio/citrus.png",
   },
   {
-    name: "Online test app",
+    name: "Practice test portal",
     tagline: "4MM+ questions answered",
     description:
       "Built a fully featured online, interactive practice test tool from zero to one for ArborBridge and Private Prep. Adaptive, data-driven lessons across SAT, ACT, and entrance exam prep.",
