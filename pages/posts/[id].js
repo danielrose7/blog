@@ -30,6 +30,10 @@ const FIXED_WIDTH = 520;
 export default function Post({ postData }) {
   const correctionRatio = FIXED_WIDTH / postData.imageWidth;
 
+  const embedSrc = postData.codepenEmbed
+    ? `https://codepen.io/${postData.codepenEmbed}`
+    : null
+
   return (
     <Layout>
       <Head>
@@ -40,16 +44,31 @@ export default function Post({ postData }) {
         <meta property="og:image" content={postData.image} />
       </Head>
       <article className={postStyles.article}>
-        <div>
-          <Image
-            src={postData.image}
-            alt={`Preview of ${postData.title}`}
-            width={FIXED_WIDTH}
-            height={Math.floor(correctionRatio * postData.imageHeight)}
-          />
-          {!!postData.codepenLink && <a href={postData.codepenLink} target="_blank" className={postStyles.externalLink}>View on CodePen ↗</a>}
-          {!!postData.githubLink && <a href={postData.githubLink} target="_blank" className={postStyles.externalLink}>View on GitHub ↗</a>}
-        </div>
+        {embedSrc ? (
+          <div className={postStyles.embedWrapper}>
+            <iframe
+              scrolling="no"
+              title={postData.title}
+              src={embedSrc}
+              frameBorder="no"
+              loading="lazy"
+              allowTransparency="true"
+              allowFullScreen="true"
+            />
+            {!!postData.codepenLink && <a href={postData.codepenLink} target="_blank" className={postStyles.externalLink}>View on CodePen ↗</a>}
+          </div>
+        ) : (
+          <div>
+            <Image
+              src={postData.image}
+              alt={`Preview of ${postData.title}`}
+              width={FIXED_WIDTH}
+              height={Math.floor(correctionRatio * postData.imageHeight)}
+            />
+            {!!postData.codepenLink && <a href={postData.codepenLink} target="_blank" className={postStyles.externalLink}>View on CodePen ↗</a>}
+            {!!postData.githubLink && <a href={postData.githubLink} target="_blank" className={postStyles.externalLink}>View on GitHub ↗</a>}
+          </div>
+        )}
         <div>
           <h1 className={utilStyles.headingXl}>{postData.title}</h1>
           <div className={utilStyles.lightText}>
