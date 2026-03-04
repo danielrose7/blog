@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lessons from the Frontier — Daniel Rose</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+  <style>
+    :root {
+      --r-background-color: #0a0a0f;
+      --r-main-color: #e0e0e8;
+      --r-heading-color: #ffffff;
+      --r-link-color: #6ea8fe;
+      --r-selection-background-color: #3b82f680;
+      --r-heading-font: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --r-main-font: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      --r-code-font: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      --r-main-font-size: 32px;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+    .reveal { font-weight: 400; }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-transform: none; }
+    .reveal h1 { font-size: 2.2em; font-weight: 700; letter-spacing: -0.02em; }
+    .reveal h2 { font-size: 1.6em; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.6em; }
+    .reveal h3 { font-size: 1.1em; font-weight: 500; color: #94a3b8; }
+    .reveal p { line-height: 1.6; }
+    .reveal li { margin-bottom: 0.4em; line-height: 1.5; }
+    .reveal ol { padding-left: 1.2em; }
+    .reveal ol li::marker { color: #6ea8fe; font-weight: 500; }
+    .reveal ul { list-style: none; padding-left: 0.6em; }
+    .reveal ul li::before { content: "· "; color: #64748b; }
+    .reveal ul ul, .reveal ul ol, .reveal ol ol, .reveal ol ul { margin-left: 10px; }
+    .reveal code { font-size: 0.85em; }
+    .reveal pre { box-shadow: none; }
+    .reveal pre code {
+      padding: 1em 1.2em;
+      border-radius: 8px;
+      background: #13131a;
+      border: 1px solid #1e293b;
+      font-size: 0.55em;
+      line-height: 1.5;
+      max-height: 480px;
+    }
+
+    /* Curate highlight */
+    .curate {
+      color: #f59e0b;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    /* Subtle dimmed text */
+    .dim { color: #64748b; font-size: 0.85em; }
+    .accent { color: #6ea8fe; }
+    .accent-green { color: #4ade80; }
+    .accent-amber { color: #f59e0b; }
+    .accent-rose { color: #fb7185; }
+
+    /* Flow diagram style */
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6em;
+      margin: 1.2em 0;
+      font-size: 0.9em;
+    }
+    .flow-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.5em 1em;
+      font-weight: 500;
+    }
+    .flow-box.ai { border-color: #6ea8fe; color: #6ea8fe; }
+    .flow-box.code { border-color: #4ade80; color: #4ade80; }
+    .flow-box.product { border-color: #f59e0b; color: #f59e0b; }
+    .flow-arrow { color: #475569; font-size: 1.4em; }
+
+    /* Quote styling */
+    .reveal blockquote {
+      background: #13131a;
+      border-left: 4px solid #6ea8fe;
+      padding: 0.8em 1.2em;
+      margin: 1em 0;
+      font-style: italic;
+      width: 90%;
+      box-sizing: border-box;
+    }
+    .reveal blockquote footer {
+      font-style: normal;
+      font-size: 0.8em;
+      color: #64748b;
+      margin-top: 0.4em;
+    }
+
+    /* Big number / stat */
+    .big-stat {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #f59e0b;
+      margin: 0.3em 0;
+    }
+
+    /* Slide-specific overrides */
+    .title-slide h1 { font-size: 2.8em; margin-bottom: 0.1em; }
+    .title-slide h3 { font-size: 1em; color: #64748b; font-weight: 400; }
+
+    .summary-slide li { font-size: 0.9em; margin-bottom: 0.3em; }
+
+    /* Two-column layout */
+    .columns { display: flex; gap: 2em; align-items: flex-start; }
+    .columns > * { flex: 1; }
+
+    .reveal .slide-number { font-size: 14px; color: #475569; }
+
+    /* Fixed section header for multi-slide sequences */
+    .section-header {
+      position: absolute;
+      top: 1.2em;
+      left: 0;
+      width: 100%;
+      font-size: 0.7em;
+      font-weight: 600;
+      color: #f59e0b;
+      font-style: italic;
+      letter-spacing: 0.01em;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 1: Title -->
+      <!-- ============================================================ -->
+      <section class="title-slide" data-background-color="#0a0a0f">
+        <div style="font-size: 2.8em; margin-bottom: 0.3em; line-height: 1;">
+<svg viewBox="0 0 32 20" width="192" height="120" style="display: block; margin: 0 auto 0.15em; image-rendering: pixelated;">
+  <defs><style>rect.p{fill:#f59e0b}rect.d{fill:#b45309}rect.g{fill:#334155}</style></defs>
+  <!-- Wagon bed -->
+  <rect class="p" x="8" y="10" width="1" height="5"/>
+  <rect class="p" x="9" y="11" width="10" height="4"/>
+  <rect class="p" x="19" y="10" width="1" height="5"/>
+  <!-- Cargo bumps -->
+  <rect class="d" x="10" y="10" width="3" height="1"/>
+  <rect class="d" x="15" y="10" width="3" height="1"/>
+  <!-- Canvas cover - arched -->
+  <rect class="p" x="9" y="4" width="1" height="7"/>
+  <rect class="p" x="19" y="4" width="1" height="7"/>
+  <rect class="p" x="13" y="2" width="1" height="1"/>
+  <rect class="p" x="14" y="2" width="1" height="1"/>
+  <rect class="p" x="15" y="2" width="1" height="1"/>
+  <rect class="p" x="10" y="3" width="1" height="1"/>
+  <rect class="p" x="11" y="3" width="1" height="1"/>
+  <rect class="p" x="12" y="3" width="1" height="1"/>
+  <rect class="p" x="16" y="3" width="1" height="1"/>
+  <rect class="p" x="17" y="3" width="1" height="1"/>
+  <rect class="p" x="18" y="3" width="1" height="1"/>
+  <!-- Canvas fill (darker) -->
+  <rect class="d" x="10" y="4" width="9" height="1" opacity="0.5"/>
+  <rect class="d" x="11" y="5" width="7" height="1" opacity="0.3"/>
+  <!-- Canvas ribs -->
+  <rect class="p" x="12" y="4" width="1" height="7" opacity="0.4"/>
+  <rect class="p" x="16" y="4" width="1" height="7" opacity="0.4"/>
+  <!-- Tongue/hitch -->
+  <rect class="p" x="6" y="13" width="2" height="1"/>
+  <rect class="p" x="5" y="14" width="1" height="1"/>
+  <!-- Front wheel -->
+  <rect class="p" x="10" y="15" width="1" height="1"/>
+  <rect class="p" x="12" y="15" width="1" height="1"/>
+  <rect class="p" x="9" y="16" width="1" height="1"/>
+  <rect class="p" x="13" y="16" width="1" height="1"/>
+  <rect class="p" x="9" y="17" width="1" height="1"/>
+  <rect class="p" x="13" y="17" width="1" height="1"/>
+  <rect class="p" x="10" y="18" width="1" height="1"/>
+  <rect class="p" x="12" y="18" width="1" height="1"/>
+  <rect class="d" x="11" y="16" width="1" height="2"/>
+  <!-- Rear wheel -->
+  <rect class="p" x="16" y="15" width="1" height="1"/>
+  <rect class="p" x="18" y="15" width="1" height="1"/>
+  <rect class="p" x="15" y="16" width="1" height="1"/>
+  <rect class="p" x="19" y="16" width="1" height="1"/>
+  <rect class="p" x="15" y="17" width="1" height="1"/>
+  <rect class="p" x="19" y="17" width="1" height="1"/>
+  <rect class="p" x="16" y="18" width="1" height="1"/>
+  <rect class="p" x="18" y="18" width="1" height="1"/>
+  <rect class="d" x="17" y="16" width="1" height="2"/>
+  <!-- Ground -->
+  <rect class="g" x="0" y="19" width="2" height="1"/>
+  <rect class="g" x="4" y="19" width="3" height="1"/>
+  <rect class="g" x="9" y="19" width="1" height="1"/>
+  <rect class="g" x="14" y="19" width="2" height="1"/>
+  <rect class="g" x="21" y="19" width="4" height="1"/>
+  <rect class="g" x="27" y="19" width="2" height="1"/>
+  <!-- Stars -->
+  <rect class="p" x="2" y="2" width="1" height="1" opacity="0.5"/>
+  <rect class="p" x="25" y="4" width="1" height="1" opacity="0.6"/>
+  <rect class="p" x="28" y="1" width="1" height="1" opacity="0.4"/>
+  <rect class="p" x="4" y="6" width="1" height="1" opacity="0.3"/>
+</svg>
+        </div>
+        <h1 style="font-size: 2.2em; margin-bottom: 0.1em;">Lessons from the Frontier<sup style="font-size: 0.4em; vertical-align: super; color: #f59e0b; font-weight: 500; margin-left: 0.15em;">AI</sup></h1>
+        <h3 style="margin-top: 0.6em;">Daniel Rose</h3>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 2: Human vs AI — side by side -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="columns" style="align-items: flex-start; margin-top: 0.5em;">
+          <div>
+            <h2 style="margin-bottom: 0.6em;">You are a human.</h2>
+            <ol style="margin-top: 0.5em; font-size: 0.9em;">
+              <li>You have experience</li>
+              <li>You have good ideas<span style="color: #f59e0b;">*</span></li>
+            </ol>
+            <p style="margin-top: 1.2em; font-size: 0.5em; color: #64748b; font-style: italic;">
+              <span style="color: #f59e0b;">*</span>or at least can sometimes
+            </p>
+          </div>
+          <div class="fragment">
+            <h2 style="margin-bottom: 0.6em;">LLMs are interns.</h2>
+            <ol style="margin-top: 0.5em; font-size: 0.9em;">
+              <li>eagerly follows instructions + repeats at scale</li>
+              <li>will push ahead, even on a bad idea</li>
+              <li>has alien brain<span style="color: #f59e0b;">*</span></li></li>
+            </ol>
+            <p style="margin-top: 1.2em; font-size: 0.5em; color: #64748b; font-style: italic;">
+              <span style="color: #f59e0b;">*</span>occasionally brilliant
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 5: Curate your context — title -->
+      <!-- ============================================================ -->
+      <section>
+        <h2 style="font-size: 2em;"><span class="curate">Curate</span> your context</h2>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 5b: Context bloat math -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your context</div>
+        <blockquote style="font-size: 0.85em; margin-top: 1em; width: 95%;">
+          <p style="line-height: 1.7;">
+            An average LLM context holds <span class="accent">200,000</span> tokens.
+          </p>
+          <p style="line-height: 1.7; margin-top: 0.6em;">
+            That means ~<span class="accent">250 tokens</span> for each of your 800 endpoints.
+          </p>
+          <p style="line-height: 1.7; margin-top: 0.6em;">
+            If each tool description was about as long as
+            the text on this slide, you've used <span class="accent">1/4 of memory</span>...
+          </p>
+          <p style="font-size: 1.3em; margin-top: 0.8em;">
+            just by saying <span class="accent-amber" style="font-weight: 700; font-style: italic;">hello.</span>
+          </p>
+          <footer>— Jeremiah Lowin</footer>
+        </blockquote>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 5c: The right context -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your context</div>
+        <p style="font-size: 1.2em; line-height: 1.6; margin-top: 1.65em;">
+          It's not about <em>less</em> or <em>more</em>.
+        </p>
+        <p style="font-size: 1.4em; margin-top: 0.8em;">
+          It's about the <span class="accent">right context</span>, carefully chosen.
+        </p>
+        <blockquote style="font-size: 0.75em; margin-top: 1.2em;">
+          "We expanded prompts from ~100 words to 2,000+ — but every word was <span class="curate">curated</span>.<br/>
+          Explicit column definitions. Precise output formats. Concrete decision rules."
+          <footer>— Inngest, <a href="https://www.inngest.com/blog/how-we-built-insights-ai" style="color: #6ea8fe;">"How We Built Insights AI"</a></footer>
+        </blockquote>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 5d: Checkpoints + book metaphor -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your context</div>
+        <h2 style="margin-top: 1.65em;">Think in checkpoints, not threads</h2>
+        <p style="font-size: 1em; margin-top: 0.8em; color: #94a3b8;">
+          You don't re-read chapters 1 to 9 before starting chapter 10.<br/>
+        </p>
+        <p style="font-size: 1em; margin-top: 0.8em; color: #94a3b8;">
+          <code>/compact</code> and <code>/clear</code> are your friends.
+        </p>
+        <p style="margin-top: 1em; font-size: 0.9em;">
+          <span class="accent-green">Summaries and decisions</span>
+          &nbsp;&gt;&nbsp;
+          <span class="accent-rose">raw conversation history</span>
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 5e: Training data cutoff -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your context</div>
+        <h2 style="margin-top: 1.65em;">Training data has a cutoff</h2>
+        <p style="font-size: 0.95em; margin-top: 0.8em;">
+          Models don't know about your <span class="accent">latest library version</span><br/>
+          or last week's blog post.
+        </p>
+        <p style="margin-top: 1em; font-size: 0.85em; color: #94a3b8;">
+          The model will confidently use a deprecated API<br/>
+          if it doesn't know the new one exists.
+        </p>
+        <p style="margin-top: 1em; font-size: 1em;">
+          <span class="accent-green">Tell it to web search.</span>
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 6: Curate your tools — title -->
+      <!-- ============================================================ -->
+      <section>
+        <h2 style="font-size: 2em;"><span class="curate">Curate</span> your tools</h2>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 6a: Tools ≠ utils -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your tools</div>
+        <h2 style="margin-top: 1.65em;">Tools <span class="accent-rose">≠</span> utils</h2>
+        <p style="font-size: 1em; margin-top: 1em; line-height: 1.6;">
+          We abstract code into small, composable functions.<br/>
+          <span style="color: #94a3b8;">That's good engineering. It's bad tool design.</span>
+        </p>
+        <div class="columns" style="margin-top: 1.2em; font-size: 0.75em; text-align: left;">
+          <div>
+            <p style="font-weight: 600; margin-bottom: 0.4em; color: #94a3b8;">How we write code</p>
+            <p style="font-family: var(--r-code-font); color: #64748b; font-size: 0.85em; line-height: 1.6;">
+              getColumns()<br/>
+              filterBy(field, op, value)<br/>
+              sortBy(field, direction)<br/>
+              setVisibility(field, bool)<br/>
+              applyChanges()
+            </p>
+          </div>
+          <div>
+            <p style="font-weight: 600; margin-bottom: 0.4em; color: #f59e0b;">How agents need tools</p>
+            <p style="font-family: var(--r-code-font); color: #f59e0b; font-size: 0.85em; line-height: 1.6;">
+              buildView(intent)
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 6b: Code vs LLMs — complementary -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your tools</div>
+        <div class="columns" style="align-items: flex-start; margin-top: 1.65em;">
+          <div>
+            <h2 style="margin-bottom: 0.6em; color: #4ade80;">Code</h2>
+            <ol style="margin-top: 0.5em; font-size: 0.9em;">
+              <li>Deterministic
+                <ul><li>same input => output</li></ul>
+              </li>
+              <li>Extremely fast
+                <ul><li>Bagillion ops/second</li></ul>
+              </li>
+              <li>Exact transformations
+                <ul><li>x + y = z</li></ul>
+              </li>
+            </ol>
+          </div>
+          <div>
+            <h2 style="margin-bottom: 0.6em; color: #6ea8fe;">LLMs</h2>
+            <ol style="margin-top: 0.5em; font-size: 0.9em;">
+              <li>Probabilistic
+                <ul><li>same input => output ..?</li></ul>
+              </li>
+              <li>Slow
+                <ul><li>Couple ops/second</li></ul>
+              </li>
+              <li>Fuzzy transformations
+                <ul><li>"make x more like y"</li></ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <blockquote style="font-size: 0.75em; margin-top: 1.2em;">
+          "Agents find needles in haystacks — by examining every piece of hay."
+          <footer>— Jeremiah Lowin</footer>
+        </blockquote>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 6c: The Trap vs The Fix -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your tools</div>
+        <h2 style="margin-top: 1.65em;"><span class="accent">Outcomes</span>, not operations</h2>
+        <div class="columns" style="margin-top: 1.2em; font-size: 0.75em; text-align: left;">
+          <div>
+            <p style="font-weight: 600; margin-bottom: 0.5em;"><span class="accent-rose">&#x2717;</span> The Trap</p>
+            <p style="font-family: var(--r-code-font); color: #94a3b8; font-size: 0.85em; margin-bottom: 0.6em;">
+              get_columns(), set_filter(),<br/>set_sort(), apply_changes()
+            </p>
+            <ul style="font-size: 0.95em;">
+              <li>Agent-as-glue</li>
+              <li>Fragile multi-step chains</li>
+              <li>Every step can fail</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-weight: 600; margin-bottom: 0.5em;"><span class="accent-green">&#x2713;</span> The Fix</p>
+            <p style="font-family: var(--r-code-font); color: #94a3b8; font-size: 0.85em; margin-bottom: 0.6em;">
+              build_view(intent)
+            </p>
+            <ul style="font-size: 0.95em;">
+              <li>One tool = one <span class="accent">agent story</span></li>
+              <li>Server handles composition</li>
+              <li>Name tools for agents (verb + intent)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 6b: Agent stories -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your tools</div>
+        <h2 style="margin-top: 1.65em;">Write <span class="accent">agent stories</span></h2>
+        <p style="font-size: 0.9em; margin-top: 0.8em; color: #94a3b8;">
+          User stories, but the persona is the agent.
+        </p>
+        <div class="columns" style="margin-top: 1.2em; font-size: 0.7em; text-align: left;">
+          <div>
+            <p style="font-weight: 600; margin-bottom: 0.4em; color: #94a3b8;">User story</p>
+            <blockquote style="font-size: 1em; border-left-color: #475569;">
+              As a <strong>nursery worker</strong>,<br/>
+              I want to <strong>filter inventory by status</strong>,<br/>
+              so I can <strong>see what's ready to ship</strong>.
+            </blockquote>
+          </div>
+          <div>
+            <p style="font-weight: 600; margin-bottom: 0.4em; color: #f59e0b;">Agent story</p>
+            <blockquote style="font-size: 1em; border-left-color: #f59e0b;">
+              As an <strong>AI assistant</strong>,<br/>
+              I want to <strong>build a complete view from intent</strong>,<br/>
+              so I can <strong>configure the grid in one call</strong>.
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 7: Curate your AI's output -->
+      <!-- ============================================================ -->
+      <section>
+        <h2 style="font-size: 2em;"><span class="curate">Curate</span> your output</h2>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 7b: Translation layer concept -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your output</div>
+        <p style="font-size: 1.1em; margin-top: 1.65em; line-height: 1.6;">
+          AI output doesn't need to match what the product needs.
+        </p>
+        <p style="font-size: 1.1em; margin-top: 0.6em;">
+          Design a <span class="accent">translation layer</span>. Include unit tests.
+        </p>
+        <div class="flow" style="margin-top: 1.5em;">
+          <div class="flow-box ai">AI shape</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box code">code bridge</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box product">product shape</div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 7c: The problem -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your output</div>
+        <h2 style="margin-top: 1.65em; font-size: 1.3em;">The problem: MUI needs an exact shape</h2>
+<pre style="margin-top: 1em;"><code class="language-typescript" style="font-size: 0.7em;">// MUI data grid needs BOTH of these, precisely correct:
+
+columnVisibilityModel: {
+  name: true, sku: true, status: true,
+  qty: true, internalNotes: false, ...
+}
+
+orderedFields: [
+  "__check__",        // ← system column (checkbox)
+  "name", "sku",      // ← user columns in exact order
+  "status", "qty",
+  "actions"           // ← system column (buttons)
+]</code></pre>
+        <p style="font-size: 0.85em; margin-top: 1em; color: #94a3b8;">
+          AI was unreliable at producing this — forgot system columns,<br/>
+          wrong ordering, flipped visibility booleans.
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 7d: The solution -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header"><span class="curate">Curate</span> your output</div>
+        <h2 style="margin-top: 1.65em; font-size: 1.3em;">The fix: let each do what it's good at</h2>
+        <div class="columns" style="margin-top: 1em; font-size: 0.8em; text-align: left;">
+          <div>
+            <p class="accent" style="font-weight: 600; margin-bottom: 0.4em;">AI returns categories</p>
+<pre><code class="language-typescript" style="font-size: 0.8em;">// Semantic — natural for an LLM
+{
+  identifyingColumns: ["name", "sku"],
+  relevantColumns:    ["status", "qty"],
+  insightColumns:     ["updatedAt"],
+  hideColumns:        ["internalNotes"]
+}</code></pre>
+          </div>
+          <div>
+            <p class="accent-green" style="font-weight: 600; margin-bottom: 0.4em;">Code translates</p>
+<pre><code class="language-typescript" style="font-size: 0.8em;">// Deterministic — unit tested
+mergeAIColumnVisibility(categories)
+  → { name: true, sku: true, ... }
+
+anchorSystemColumns(aiOrder)
+  → [__check__, ...ai..., actions]</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 10: Case study — title -->
+      <!-- ============================================================ -->
+      <section>
+        <h2>Case study: AI Data Grid Assistant</h2>
+        <p style="font-size: 0.9em; color: #94a3b8; margin-bottom: 1em;">
+          Natural language filtering for non-technical nursery staff
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 10b: Human ideas -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header" style="color: #6ea8fe;">Case study</div>
+        <h2 style="margin-top: 1.65em;">Ideas were human-led</h2>
+        <ol style="margin-top: 0.8em; font-size: 0.85em;">
+          <li>The feature itself
+            <ul><li>Relatively simple to build, plenty of sizzle</li>
+            <li>Foundation for future AI features</li></ul>
+          </li>
+          <li>The output shape
+            <ul><li>Categories, not booleans — after watching AI fail at exact shapes</li></ul>
+          </li>
+          <li>Edge cases caught by human testing
+            <ul><li>Location tree hierarchies, column visibility merge bugs</li></ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 10c: AI implementation -->
+      <!-- ============================================================ -->
+      <section>
+        <div class="section-header" style="color: #6ea8fe;">Case study</div>
+        <h2 style="margin-top: 1.65em;">Implementation was AI-led</h2>
+        <ol style="margin-top: 0.8em; font-size: 0.85em;">
+          <li>Plan mode — 15+ times
+            <ul><li>Human sets direction, AI proposes implementation</li></ul>
+          </li>
+          <li>Fed it Vercel's <code>useChat</code> examples
+            <ul><li>Training data cutoff — needed current docs and patterns</li></ul>
+          </li>
+          <li>Fantastic at bulk repetitive work
+            <ul><li>Adding <code>isSearchable</code> to 50+ column definitions across 12 grids</li></ul>
+          </li>
+          <li>Translation layer: pure functions, unit tested
+            <ul><li><code>mergeAIColumnVisibility()</code> and <code>anchorSystemColumns()</code></li></ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 11: Curate ruthlessly -->
+      <!-- ============================================================ -->
+      <section data-background-color="#0f0f18">
+        <h2 style="font-size: 2em;"><span class="curate">Curate</span> ruthlessly</h2>
+        <div style="margin-top: 1.2em; font-size: 0.85em; text-align: left; max-width: 85%; margin-left: auto; margin-right: auto;">
+          <p><span class="curate">Curate</span> your tools
+            <span class="dim">&nbsp;— 5–15, not 800</span></p>
+          <p style="margin-top: 0.6em;"><span class="curate">Curate</span> your context
+            <span class="dim">&nbsp;— focused &gt; bloated</span></p>
+          <p style="margin-top: 0.6em;"><span class="curate">Curate</span> your workflow
+            <span class="dim">&nbsp;— checkpoints &gt; threads</span></p>
+          <p style="margin-top: 0.6em;"><span class="curate">Curate</span> your output
+            <span class="dim">&nbsp;— translation layers &gt; direct mapping</span></p>
+        </div>
+        <p style="margin-top: 1.2em; font-size: 0.85em; color: #94a3b8; font-style: italic;">
+          "The most important word for MCP developers is <span class="curate">curate</span>."
+          <span style="color: #64748b;">— Jeremiah Lowin</span>
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- SLIDE 12: Summary -->
+      <!-- ============================================================ -->
+      <section>
+        <h2>Summary</h2>
+        <ol style="font-size: 0.8em;">
+          <li>Humans have ideas and experience</li>
+          <li>LLMs are interns — eager, tireless, occasionally brilliant</li>
+          <li>right context &gt; more (or less) context — web search</li>
+          <li>tools ≠ utils — design for outcomes with agent stories</li>
+          <li>AI output ≠ product shape — build a bridge with unit tests</li>
+          <li><span class="curate">Curate. Be bold</span></strong></li>
+        </ol>
+        <div style="margin-top: 1.5em; font-size: 0.55em; color: #64748b;">
+          <span style="color: #94a3b8;">References:</span>
+          Jeremiah Lowin — <em>"Your MCP Server is Bad"</em> ·
+          Inngest — <em>"How We Built Insights AI"</em>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      controls: true,
+      progress: true,
+      center: true,
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      plugins: [RevealHighlight],
+    });
+  </script>
+</body>
+</html>
