@@ -29,3 +29,21 @@ img {
   max-width: 100%;
   display: block;
 }
+
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+  background: #f4f4f4;
+  border-radius: 6px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+pre code {
+  white-space: pre-wrap;
+}

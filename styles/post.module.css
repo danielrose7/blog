@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.article > * {
+  min-width: 0;
+}
+
 .externalLink {
   display: block;
   text-align: center;
