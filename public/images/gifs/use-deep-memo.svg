@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <style>
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes wiggle { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-4deg); } 75% { transform: rotate(4deg); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes blink { 0%,42%,46%,100% { ry: 8; } 44% { ry: 1.5; } }
+    @keyframes wave { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(20deg); } }
+    @keyframes sparkle { 0%,100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
+
+    .bg { fill: #faf3eb; }
+    .title { fill: #3d3535; font-family: -apple-system, 'Helvetica Neue', sans-serif; font-size: 20px; font-weight: 700; }
+    .label { fill: #3d3535; font-family: -apple-system, 'Helvetica Neue', sans-serif; font-size: 13px; font-weight: 600; }
+    .sublabel { fill: #8a7f7f; font-family: -apple-system, 'Helvetica Neue', sans-serif; font-size: 11px; }
+
+    .box-old { animation: float 3s ease-in-out infinite; }
+    .box-new { animation: bounce 2s ease-in-out infinite 0.5s; }
+    .magnifier { animation: wiggle 1.5s ease-in-out infinite 1s; transform-origin: 320px 210px; }
+    .checkmark { animation: popIn 0.5s ease both 1.8s; transform-origin: 430px 290px; }
+    .speech { animation: popIn 0.4s ease both 2.2s; transform-origin: 370px 130px; }
+    .sparkle1 { animation: sparkle 1.5s ease-in-out infinite 2.5s; }
+    .sparkle2 { animation: sparkle 1.5s ease-in-out infinite 2.8s; }
+    .sparkle3 { animation: sparkle 1.5s ease-in-out infinite 3.1s; }
+    .hand { animation: wave 1s ease-in-out infinite 2.4s; transform-origin: 494px 230px; }
+  </style>
+
+  <rect class="bg" width="640" height="400" rx="12"/>
+
+  <!-- Title -->
+  <text class="title" x="320" y="42" text-anchor="middle">useDeepMemo</text>
+
+  <!-- Left box: "New Object" -->
+  <g class="box-new">
+    <!-- Box body -->
+    <rect x="100" y="130" width="120" height="100" rx="18" fill="#f6a5c0" stroke="#e0789a" stroke-width="2.5"/>
+    <!-- Label on box -->
+    <rect x="118" y="138" width="84" height="22" rx="8" fill="#e0789a" opacity="0.5"/>
+    <text x="160" y="153" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10" font-weight="bold">{ a: 1 }</text>
+    <!-- Eyes -->
+    <ellipse cx="140" cy="185" rx="7" ry="8" fill="#3d3535" style="animation: blink 3s ease-in-out infinite;"/>
+    <ellipse cx="175" cy="185" rx="7" ry="8" fill="#3d3535" style="animation: blink 3s ease-in-out infinite 0.2s;"/>
+    <!-- Eye highlights -->
+    <circle cx="143" cy="182" r="2.5" fill="#fff"/>
+    <circle cx="178" cy="182" r="2.5" fill="#fff"/>
+    <!-- Happy mouth -->
+    <path d="M145 202 Q158 215 170 202" fill="none" stroke="#3d3535" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text class="label" x="160" y="255" text-anchor="middle">new obj</text>
+  <text class="sublabel" x="160" y="270" text-anchor="middle">(new reference!)</text>
+
+  <!-- Right box: "Stable Ref" (the keeper) -->
+  <g class="box-old">
+    <rect x="400" y="130" width="120" height="100" rx="18" fill="#a5d8f6" stroke="#78b8e0" stroke-width="2.5"/>
+    <rect x="418" y="138" width="84" height="22" rx="8" fill="#78b8e0" opacity="0.5"/>
+    <text x="460" y="153" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10" font-weight="bold">{ a: 1 }</text>
+    <!-- Eyes -->
+    <ellipse cx="440" cy="185" rx="7" ry="8" fill="#3d3535" style="animation: blink 3s ease-in-out infinite 1s;"/>
+    <ellipse cx="475" cy="185" rx="7" ry="8" fill="#3d3535" style="animation: blink 3s ease-in-out infinite 1.2s;"/>
+    <circle cx="443" cy="182" r="2.5" fill="#fff"/>
+    <circle cx="478" cy="182" r="2.5" fill="#fff"/>
+    <!-- Cool smile -->
+    <path d="M445 202 Q458 218 470 202" fill="none" stroke="#3d3535" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Little waving hand -->
+    <g class="hand">
+      <circle cx="494" cy="230" r="8" fill="#f8d49a"/>
+      <text x="494" y="234" text-anchor="middle" font-size="11">👋</text>
+    </g>
+  </g>
+  <text class="label" x="460" y="255" text-anchor="middle">stable ref</text>
+  <text class="sublabel" x="460" y="270" text-anchor="middle">(I stay!)</text>
+
+  <!-- Center: magnifying glass comparing -->
+  <g class="magnifier">
+    <circle cx="310" cy="195" r="30" fill="#fff8e1" stroke="#f5c542" stroke-width="3"/>
+    <line x1="332" y1="217" x2="350" y2="238" stroke="#d4a830" stroke-width="4" stroke-linecap="round"/>
+    <text x="310" y="200" text-anchor="middle" fill="#d4a830" font-family="-apple-system, sans-serif" font-size="22" font-weight="bold">==</text>
+  </g>
+
+  <!-- Speech bubble: "Same!" -->
+  <g class="speech">
+    <rect x="280" y="90" width="80" height="36" rx="14" fill="#fff" stroke="#e0e0e0" stroke-width="1.5"/>
+    <polygon points="310,126 320,140 330,126" fill="#fff" stroke="#e0e0e0" stroke-width="1.5"/>
+    <polygon points="312,126 320,137 328,126" fill="#fff" stroke="none"/>
+    <text x="320" y="114" text-anchor="middle" fill="#4caf50" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Same!</text>
+  </g>
+
+  <!-- Checkmark badge -->
+  <g class="checkmark">
+    <circle cx="430" cy="290" r="16" fill="#4caf50"/>
+    <polyline points="422,290 428,296 440,283" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Sparkles -->
+  <g class="sparkle1"><text x="530" y="120" font-size="18">✨</text></g>
+  <g class="sparkle2"><text x="88" y="140" font-size="14">✨</text></g>
+  <g class="sparkle3"><text x="360" y="75" font-size="12">✨</text></g>
+
+  <!-- Bottom caption -->
+  <text x="320" y="340" text-anchor="middle" fill="#8a7f7f" font-family="-apple-system, 'Helvetica Neue', sans-serif" font-size="14">Same data? Keep the old reference. Skip the re-render.</text>
+
+  <!-- Arrow from new to magnifier -->
+  <path d="M224 180 Q260 180 278 190" fill="none" stroke="#e0789a" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+  <!-- Arrow from magnifier to stable -->
+  <path d="M342 190 Q370 180 396 180" fill="none" stroke="#78b8e0" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+</svg>
