@@ -43,7 +43,7 @@ export default function Post({ postData }) {
         <meta name="og:description" content={postData.description} />
         <meta property="og:image" content={postData.image} />
       </Head>
-      <article className={postStyles.article}>
+      <article className={`${postStyles.article} ${postData.layout === 'stacked' ? postStyles.stacked : ''}`}>
         {embedSrc ? (
           <div className={postStyles.embedWrapper}>
             <iframe
@@ -67,6 +67,7 @@ export default function Post({ postData }) {
             />
             {!!postData.codepenLink && <a href={postData.codepenLink} target="_blank" className={postStyles.externalLink}>View on CodePen ↗</a>}
             {!!postData.githubLink && <a href={postData.githubLink} target="_blank" className={postStyles.externalLink}>View on GitHub ↗</a>}
+            {!!postData.externalLink && <a href={postData.externalLink} target="_blank" className={postStyles.externalLink}>{postData.externalLinkText || 'View'} ↗</a>}
           </div>
         )}
         <div>

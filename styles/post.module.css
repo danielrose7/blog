@@ -25,6 +25,21 @@
     grid-template-columns: 520px auto;
     grid-gap: 4rem;
   }
+
+  .stacked {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stacked {
+  max-width: 720px;
+}
+
+.stacked > *:first-child {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .embedWrapper {
