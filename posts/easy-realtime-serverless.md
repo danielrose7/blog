@@ -5,16 +5,15 @@ image: "/images/gifs/easy-realtime-serverless.svg"
 imageWidth: 640
 imageHeight: 400
 slug: easy-realtime-serverless
+layout: stacked
 ---
 
-Added real-time sync to [Tote](https://tote.tools) in about 10 minutes by feeding the [Neon real-time comments guide](https://neon.com/guides/real-time-comments) URL directly into a prompt. The pattern it produced: a **transactional outbox**.
+Added real-time sync to [Tote](https://tote.tools) in about 10 minutes. Two things made it that fast.
 
-Every write opens a Postgres transaction that applies the change *and* inserts a row into `ably_outbox` — both commit or neither does. No case where a write succeeds but clients aren't notified, or a notification arrives before the data exists.
+First, [Ably's](https://ably.com/) onboarding — a short series of structured questions plus a free-text field, likely AI-driven, that ends with a specific product recommendation rather than a docs dump. Landed on the Ably Postgres Connector without having to figure that out myself.
 
-A trigger fires `pg_notify` on each insert. The [Ably Postgres Connector](https://ably.com/) runs `LISTEN` against Neon outside of Vercel, claims the outbox row, and publishes to the right channel. Ably fans it out over WebSocket.
+Second, feeding the [Neon real-time comments guide](https://neon.com/guides/real-time-comments) URL directly into a prompt. The guide covers the full stack; the model had everything it needed to generate working code on the first try.
 
-On the client, a hook calls `queryClient.invalidateQueries()` on each message — no payload parsing, no local state merge. Data marked stale, TanStack Query refetches. Database stays the single source of truth.
-
-Postgres is the handoff between the stateless (Vercel) and stateful (Ably) halves of the architecture — which is why this pattern works on a serverless platform at all.
+The pattern underneath is a **transactional outbox** — the write and the notification are one atomic database transaction, so there's no case where they fall out of sync. Postgres is the handoff between the stateless (Vercel) and stateful (Ably) halves of the architecture.
 
 Total surface area: 1 Drizzle migration, 1 UI form, 2 ENV vars.
