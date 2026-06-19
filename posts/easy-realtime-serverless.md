@@ -1,10 +1,10 @@
 ---
-title: "Real-time in 10 Minutes"
+title: "Easy Realtime in Serverless Cloud"
 date: "2026-06-19"
-image: "/images/gifs/realtime-10-minutes.svg"
+image: "/images/gifs/easy-realtime-serverless.svg"
 imageWidth: 640
 imageHeight: 400
-slug: realtime-10-minutes
+slug: easy-realtime-serverless
 ---
 
 Added real-time sync to [Tote](https://usetote.com) in about 10 minutes by feeding the [Neon real-time comments guide](https://neon.com/guides/real-time-comments) URL directly into a prompt. The pattern it produced: a **transactional outbox**.
